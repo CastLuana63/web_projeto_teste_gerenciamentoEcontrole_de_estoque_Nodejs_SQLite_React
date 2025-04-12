@@ -19,7 +19,6 @@ class MovimentacaoController {
   }
 
   //  Cria uma nova movimentação para um produto (entrada ou saída).
-
   async create(req, res) {
     try {
       const {

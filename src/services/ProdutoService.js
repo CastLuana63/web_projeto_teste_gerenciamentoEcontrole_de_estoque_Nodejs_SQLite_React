@@ -2,7 +2,6 @@ import { openDb } from "../helpers/configdb.js";
 import { converterPraNumero } from "./utils/converterPraNumero.js";
 
 class ProdutosService {
-  // Retorna um produto pelo ID
   async show(id) {
     try {
       const db = await openDb();
@@ -18,20 +17,17 @@ class ProdutosService {
     }
   }
 
-  // Cria um novo produto no banco de dados
   async create(data) {
     try {
       const db = await openDb();
       let { descricao, quantidade, unidade, quantidade_embalagem } = data;
 
-      ({ quantidade, quantidade_embalagem } = converterPraNumero({
-        quantidade,
-        quantidade_embalagem,
-      }));
+      quantidade = converterPraNumero(quantidade ?? 0);
+      quantidade_embalagem = converterPraNumero(quantidade_embalagem ?? 0);
 
       const produto = await db.run(
         `INSERT INTO produto (descricao, quantidade, unidade, quantidade_embalagem) VALUES (?, ?, ?, ?)`,
-        [descricao, quantidade, unidade, quantidade_embalagem]
+        [descricao ?? "", quantidade, unidade ?? "", quantidade_embalagem]
       );
 
       return {
@@ -47,7 +43,6 @@ class ProdutosService {
     }
   }
 
-  // Lista todos os produtos
   async list() {
     try {
       const db = await openDb();
@@ -61,16 +56,16 @@ class ProdutosService {
     }
   }
 
-  // Atualização completa do produto
   async updateCompletoDoProduto(data) {
     try {
       const db = await openDb();
-      let { id, descricao, unidade, quantidade_embalagem, disponivel } = data;
+      let { id, descricao, unidade, disponivel } = data;
 
-      ({ id, quantidade_embalagem } = converterPraNumero({
-        id,
-        quantidade_embalagem,
-      }));
+      id = converterPraNumero(id);
+
+      const quantidade_embalagem = converterPraNumero(
+        data.quantidade_embalagem ?? 0
+      );
 
       const produtoExiste = await db.get(
         `SELECT * FROM produto WHERE id_produto = ?`,
@@ -83,7 +78,13 @@ class ProdutosService {
 
       const resultado = await db.run(
         `UPDATE produto SET descricao = ?, unidade = ?, quantidade_embalagem = ?, disponivel = ? WHERE id_produto = ?`,
-        [descricao, unidade, quantidade_embalagem, disponivel, id]
+        [
+          descricao ?? "",
+          unidade ?? "",
+          quantidade_embalagem,
+          disponivel ?? 0,
+          id,
+        ]
       );
 
       if (resultado.changes === 0) {
@@ -109,17 +110,14 @@ class ProdutosService {
     }
   }
 
-  // Atualização parcial do produto
   async updateParcialDoProduto(data) {
     try {
       const db = await openDb();
-
       let { id, descricao, unidade, quantidade_embalagem, disponivel } = data;
 
-      ({ id, quantidade_embalagem } = converterPraNumero({
-        id,
-        quantidade_embalagem,
-      }));
+      id = converterPraNumero(id);
+      if (quantidade_embalagem !== undefined)
+        quantidade_embalagem = converterPraNumero(quantidade_embalagem);
 
       const produtoExiste = await db.get(
         `SELECT * FROM produto WHERE id_produto = ?`,
