@@ -52,7 +52,7 @@ class ProdutosService {
     try {
       const db = await openDb();
       const produtos = await db.all(
-        `SELECT id_produto, descricao, quantidade, unidade, quantidade_embalagem, CASE WHEN disponivel = 1 THEN 'disponível' ELSE 'indisponível' END AS Disponivel FROM produto`
+        `SELECT id_produto, descricao, quantidade, unidade, quantidade_embalagem, CASE WHEN disponivel = 1 THEN 'disponível' ELSE 'indisponível' END AS disponivel FROM produto`
       );
       return produtos;
     } catch (error) {
@@ -65,18 +65,10 @@ class ProdutosService {
   async updateCompletoDoProduto(data) {
     try {
       const db = await openDb();
-      let {
-        id,
-        descricao,
-        quantidade,
-        unidade,
-        quantidade_embalagem,
-        disponivel,
-      } = data;
+      let { id, descricao, unidade, quantidade_embalagem, disponivel } = data;
 
-      ({ id, quantidade, quantidade_embalagem } = converterPraNumero({
+      ({ id, quantidade_embalagem } = converterPraNumero({
         id,
-        quantidade,
         quantidade_embalagem,
       }));
 
@@ -90,8 +82,8 @@ class ProdutosService {
       }
 
       const resultado = await db.run(
-        `UPDATE produto SET descricao = ?, quantidade = ?, unidade = ?, quantidade_embalagem = ?, disponivel = ? WHERE id_produto = ?`,
-        [descricao, quantidade, unidade, quantidade_embalagem, disponivel, id]
+        `UPDATE produto SET descricao = ?, unidade = ?, quantidade_embalagem = ?, disponivel = ? WHERE id_produto = ?`,
+        [descricao, unidade, quantidade_embalagem, disponivel, id]
       );
 
       if (resultado.changes === 0) {
@@ -106,7 +98,6 @@ class ProdutosService {
         dados: {
           id,
           descricao,
-          quantidade,
           unidade,
           quantidade_embalagem,
           disponivel,
@@ -123,18 +114,10 @@ class ProdutosService {
     try {
       const db = await openDb();
 
-      let {
-        id,
-        descricao,
-        quantidade,
-        unidade,
-        quantidade_embalagem,
-        disponivel,
-      } = data;
+      let { id, descricao, unidade, quantidade_embalagem, disponivel } = data;
 
-      ({ id, quantidade, quantidade_embalagem } = converterPraNumero({
+      ({ id, quantidade_embalagem } = converterPraNumero({
         id,
-        quantidade,
         quantidade_embalagem,
       }));
 
@@ -155,14 +138,6 @@ class ProdutosService {
           id,
         ]);
         produtoAlterado.descricao = descricao;
-      }
-
-      if (quantidade !== undefined) {
-        await db.run(`UPDATE produto SET quantidade = ? WHERE id_produto = ?`, [
-          quantidade,
-          id,
-        ]);
-        produtoAlterado.quantidade = quantidade;
       }
 
       if (unidade !== undefined) {

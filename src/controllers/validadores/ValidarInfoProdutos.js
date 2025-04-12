@@ -16,10 +16,10 @@ class ValidarProdutos {
       throw new Error("O ID do produto é obrigatório.");
     }
 
-    // Desestrutura o id e verifica se ao menos um campo foi informado para atualização
+    // Desestrutura o id e verifica se ao menos um campo tem valor para atualização
     const { id, ...camposRestantes } = data;
     const temAlgumCampo = Object.values(camposRestantes).some(
-      (valor) => valor !== undefined
+      (dados) => dados !== undefined
     );
 
     if (!temAlgumCampo) {

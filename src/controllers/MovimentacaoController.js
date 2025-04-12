@@ -18,9 +18,8 @@ class MovimentacaoController {
     }
   }
 
-  /**
-   * Cria uma nova movimentação para um produto (entrada ou saída).
-   */
+  //  Cria uma nova movimentação para um produto (entrada ou saída).
+
   async create(req, res) {
     try {
       const {
@@ -32,18 +31,11 @@ class MovimentacaoController {
       } = req.body;
 
       ValidarMovimentacao.validarCreate({
-        data_movimentacao,
         id_produto,
         quantidade,
         justificativa,
         tipo_movimentacao,
       });
-
-      if (quantidade <= 0) {
-        return res.status(401).json({
-          mensagem: "A quantidade deve ser maior que zero!",
-        });
-      }
 
       const movimentacao = await MovimentacaoService.criarMovimentacao({
         data_movimentacao,

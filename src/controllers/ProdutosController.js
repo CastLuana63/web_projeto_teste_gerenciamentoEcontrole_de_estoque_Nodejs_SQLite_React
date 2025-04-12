@@ -56,18 +56,11 @@ class ProdutosController {
   async updateCompleto(req, res) {
     try {
       const { id } = req.params;
-      const {
-        descricao,
-        quantidade,
-        unidade,
-        quantidade_embalagem,
-        disponivel,
-      } = req.body;
+      const { descricao, unidade, quantidade_embalagem, disponivel } = req.body;
 
       const resultado = await ProdutoService.updateCompletoDoProduto({
         id,
         descricao,
-        quantidade,
         unidade,
         quantidade_embalagem,
         disponivel,
@@ -91,18 +84,11 @@ class ProdutosController {
   async updateParcial(req, res) {
     try {
       const { id } = req.params;
-      const {
-        descricao,
-        quantidade,
-        unidade,
-        quantidade_embalagem,
-        disponivel,
-      } = req.body;
+      const { descricao, unidade, quantidade_embalagem, disponivel } = req.body;
 
       ValidarProdutos.validarUpdateParcial({
         id,
         descricao,
-        quantidade,
         unidade,
         quantidade_embalagem,
         disponivel,
@@ -111,7 +97,6 @@ class ProdutosController {
       const resultado = await ProdutoService.updateParcialDoProduto({
         id,
         descricao,
-        quantidade,
         unidade,
         quantidade_embalagem,
         disponivel,

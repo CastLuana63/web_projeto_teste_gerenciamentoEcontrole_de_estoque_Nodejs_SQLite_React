@@ -2,9 +2,8 @@ import { openDb } from "../helpers/configdb.js";
 import { converterPraNumero } from "./utils/converterPraNumero.js";
 
 class MovimentacaoService {
-  /*
-   - Retorna os dados de uma movimentação específica pelo ID.
-   */
+  // - Retorna os dados de uma movimentação específica pelo ID.
+
   async show(id) {
     try {
       const id_movimentacao = converterPraNumero(id);
@@ -19,10 +18,9 @@ class MovimentacaoService {
     }
   }
 
-  /*
-   - Cria uma nova movimentação (Entrada ou Saída) para um produto.
-   - Atualiza a quantidade do produto de acordo com o tipo de movimentação.
-   */
+  // - Cria uma nova movimentação (Entrada ou Saída) para um produto.
+  // - Atualiza a quantidade do produto referente ao tipo de movimentação.
+
   async criarMovimentacao(data) {
     const db = await openDb();
 
@@ -62,16 +60,14 @@ class MovimentacaoService {
       );
     }
 
+    const novaData = !data_movimentacao
+      ? new Date().toISOString()
+      : new Date(data_movimentacao).toISOString();
+
     const novaMovimentacao = await db.run(
       `INSERT INTO movimentacao (id_produto, quantidade, tipo_movimentacao, justificativa, data_movimentacao)
        VALUES (?, ?, ?, ?, ?)`,
-      [
-        id_produto,
-        quantidade,
-        tipo_movimentacao,
-        justificativa,
-        data_movimentacao,
-      ]
+      [id_produto, quantidade, tipo_movimentacao, justificativa, novaData]
     );
 
     return {
@@ -82,14 +78,13 @@ class MovimentacaoService {
         quantidade,
         tipo_movimentacao,
         justificativa,
-        data_movimentacao,
+        data_movimentacao: novaData,
       },
     };
   }
 
-  /*
-   - Lista todas as movimentações do sistema.
-   */
+  // - Lista todas as movimentações do sistema.
+
   async list() {
     try {
       const db = await openDb();
@@ -101,10 +96,9 @@ class MovimentacaoService {
     }
   }
 
-  /*
-   - Lista movimentações de um produto específico.
-   - Pode ser filtrado por tipo de movimentação (Entrada ou Saída).
-   */
+  // - Lista movimentações de um produto específico.
+  // - Pode ser filtrado por tipo de movimentação (Entrada ou Saída).
+
   async listProdutoMovimentacao(id, tipo = null) {
     try {
       const db = await openDb();

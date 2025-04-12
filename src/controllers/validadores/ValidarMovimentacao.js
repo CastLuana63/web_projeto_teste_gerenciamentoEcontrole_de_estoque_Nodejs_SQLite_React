@@ -8,7 +8,7 @@ class ValidarMovimentacao {
 
     const { quantidade } = data;
 
-    if (quantidade <= 0) {
+    if (!quantidade || quantidade <= 0) {
       throw new Error("A quantidade da movimentação deve ser maior que zero.");
     }
 
