@@ -11,3 +11,20 @@ body {
   width: 100vw;
   height: 100vh;
 }
+
+:root {
+  --cor-fundo: #f1efec;
+  --cor-destaque: #d4c9be;
+  --cor-primaria: #123458;
+  --cor-primariaClara: #123458;
+  --cor-texto: #030303;
+  --cor-tercearia: rgba(235, 90, 60, 0.5);
+  --cor-terceariaCLara: #d8e1ea;
+}
+
+.tema-daltonico {
+  --cor-fundo: #f5f5f5;
+  --cor-destaque: #c2c2c2;
+  --cor-primaria: #005fa8;
+  --cor-texto: #000000;
+}

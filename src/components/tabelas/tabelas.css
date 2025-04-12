@@ -1,0 +1,167 @@
+/* Responsividade geral */
+.tabela-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tabela-scroll {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.tabela th,
+.tabela td {
+  padding: 0.7rem 1rem;
+  text-align: center;
+  color: var(--cor-texto);
+}
+
+.tabela th {
+  font-weight: 600;
+}
+
+.iconEditar {
+  color: var(--cor-primaria);
+  font-size: 1.4rem;
+  cursor: pointer;
+  vertical-align: middle;
+  margin-left: 0.3rem;
+}
+
+.trDisponivel {
+  background-color: var(--cor-terceariaCLara);
+  color: var(--cor-primaria);
+  font-weight: bold;
+  padding: 8px;
+  border-radius: 16px;
+}
+
+.trIndisponivel {
+  background-color: var(--cor-tercearia);
+  color: var(--cor-primaria);
+  font-weight: bold;
+  padding: 8px;
+  border-radius: 16px;
+}
+
+.sub-tabela-container {
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sub-tabela-container.entrada {
+  background-color: var(--cor-terceariaCLara);
+  border-left: 5px solid #28a745;
+}
+
+.sub-tabela-container.saida {
+  background-color: var(--cor-tercearia);
+  border-left: 5px solid #dc3545;
+}
+
+.sub-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+}
+
+.sub-tabela th,
+.sub-tabela td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  background-color: #fff;
+  color: #333;
+  font-size: 0.85rem;
+}
+
+.alerta {
+  text-align: center;
+  background-color: var(--cor-fundo);
+  color: var(--cor-primaria);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--cor-primaria);
+}
+
+.linha-expandida {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.linha-branca td {
+  background-color: white;
+}
+
+.linha-sem-cor tr {
+  background-color: transparent;
+}
+
+@media screen and (max-width: 1105px) {
+  .tabela thead {
+    display: none;
+  }
+
+  .tabela tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: var(--cor-fundo);
+  }
+
+  .tabela td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+  }
+
+  .tabela td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: var(--cor-primaria);
+    display: inline-block;
+  }
+
+  .sub-tabela-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sub-tabela td::before {
+    content: none;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
