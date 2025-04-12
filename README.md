@@ -1,42 +1,40 @@
-# 🧪 Projeto Teste – Aplicação Web para Controle de Estoque
+# 🧪 Projeto Teste – Aplicação Web para Controle e Movimentação de Estoque
 
----
+## 🔹 Backend (Node.js)
 
-## 📌 Sobre o Projeto
+### 🔌 API RESTful
 
-Este projeto consiste em uma aplicação web desenvolvida com **React.js** no frontend e **Node.js** no backend, utilizando **SQLite** como banco de dados. O objetivo é oferecer um sistema simples e funcional para **controle de estoque**, incluindo cadastro, movimentação e consulta de produtos.
+- API estruturada seguindo os princípios REST:
+  - Client-Server
+  - Stateless
+  - Cacheable
+  - Layered System
+  - Code-on-Demand
 
-### 🔧 Tecnologias Utilizadas
+Referência:  
+🔗 [Boas Práticas API RESTful](https://github.com/CastLuana63/Boas_pr-ticas_api_rest_ful/tree/main)
 
-- **Backend**: Node.js, Express, Yarn
-- **Frontend**: React.js, Vite, Axios
-- **Banco de dados**: SQLite
-- **Versionamento**: Git / GitHub
+### 🔄 Operações CRUD
 
----
+#### Create
 
-## 🗎 Levantamento de Requisitos
+- [ ] Cadastrar produtos
+- [ ] Registrar movimentações
 
-### 🎯 Objetivo
+#### Read
 
-Permitir o gerenciamento completo de um estoque, com controle sobre as entradas e saídas de produtos.
+- [ ] Listar produtos
+- [ ] Listar produtos específicos
+- [ ] Listar movimentações
+- [ ] Listar movimentações específicas
+- [ ] Listar movimentações de produto
+- [ ] Listar movimentações de produto específicos (Entrada ou Saída)
 
-### ✅ Requisitos Funcionais
+#### Update
 
-- Cadastro de novos produtos
-- Atualização de produtos com dados modificados
-- Inativação de produtos
-- Verificação das quantidades recebidas em relação às notas fiscais
-- Registro das quantidades recebidas nas planilhas de entrada
-- Armazenamento dos produtos no estoque
-- Atendimento de demandas, separação e entrega de produtos
-- Registro dos produtos retirados nas planilhas de saída
-- Geração semanal de relatórios de estoque (quantidades atual, entrada e saída)
-- Ajuste mensal das planilhas conforme saldo físico dos produtos
-
-### 🧩 Acessibilidade
-
-- Suporte visual com **ajuste de cores para daltônicos**
+- [ ] Atualizar todos dados de produtos
+- [ ] Atualizar alguns dados de produtos
+- [ ] Ativar e Inativar produtos
 
 ---
 
@@ -91,48 +89,3 @@ Um produto pode estar associado a várias movimentações.
 - [node-sqlite3 (GitHub)](https://github.com/TryGhost/node-sqlite3)
 
 ---
-
-## 🔹 Backend (Node.js)
-
-### 🔌 API RESTful
-
-- API estruturada seguindo os princípios REST:
-  - Client-Server
-  - Stateless
-  - Cacheable
-  - Layered System
-  - Code-on-Demand
-
-Referência:  
-🔗 [Boas Práticas API RESTful](https://github.com/CastLuana63/Boas_pr-ticas_api_rest_ful/tree/main)
-
-### 🔄 Operações CRUD
-
-#### Create
-
-- [ ] Cadastrar produtos
-- [ ] Registrar movimentações
-
-#### Read
-
-- [ ] Listar produtos
-- [ ] Listar produtos específicos
-- [ ] Listar movimentações
-- [ ] Listar movimentações específicos
-- [ ] Listar movimentações de produto
-- [ ] Listar movimentações de produto específicos (Entrada ou Saída)
-
-#### Update
-
-- [ ] Atualizar todos dados de produtos
-- [ ] Atualizar alguns dados de produtos
-- [ ] Ativar e Inativar produtos
-
----
-
-## 🔹 Frontend (React.js)
-
-### ⚙️ Ferramentas
-
-- Projeto criado com **Vite**
-- Consumo da API via **Axios**
