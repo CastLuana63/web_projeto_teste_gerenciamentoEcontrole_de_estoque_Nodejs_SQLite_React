@@ -94,6 +94,7 @@
   padding-top: 1rem;
   gap: 1rem;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 999;
 }
 
 .btn {
@@ -102,7 +103,7 @@
   width: 80px;
   height: 40px;
   border-radius: 25px;
-  background: var(--cor-destaque);
+  background: #005fa8;
   transition: 0.5s;
   cursor: pointer;
   border: none;
@@ -117,7 +118,7 @@
   left: 0;
   width: 40px;
   height: 40px;
-  background: linear-gradient(to bottom, #888, #555);
+  background: linear-gradient(to bottom, #ccc, #fff);
   border-radius: 50%;
   transform: scale(0.8);
   transition: 0.5s;

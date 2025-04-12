@@ -1,0 +1,55 @@
+.top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.pesquisar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 2px solid var(--cor-primaria);
+  border-radius: 999px;
+  padding: 10px 20px;
+  background-color: transparent;
+  color: var(--cor-primaria);
+  width: 100%;
+  max-width: 400px;
+}
+
+.pesquisar svg {
+  font-size: 28px;
+  color: var(--cor-primaria);
+}
+
+.pesquisar input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 16px;
+  color: var(--cor-primaria);
+  width: 100%;
+}
+
+.pesquisar input::placeholder {
+  color: var(--cor-primaria);
+}
+
+.adicionar {
+  background-color: var(--cor-primaria);
+  color: var(--cor-fundo);
+}
+
+.adicionar:hover {
+  background-color: var(--cor-fundo);
+  color: var(--cor-primaria);
+}
+
+.boxBtn {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}

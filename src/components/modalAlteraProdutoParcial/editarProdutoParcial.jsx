@@ -73,7 +73,7 @@ function EditarParcial({ tipo, setAbrirModalAlterar, produtos = [] }) {
         {tipo === "Qtd/Embalagem" && (
           <input
             type="number"
-            placeholder="Qtd por Embalagem"
+            placeholder="Quantidade por Embalagem"
             value={quantidadeEmbalagem}
             onChange={(e) => setQuantidadeEmbalagem(e.target.value)}
           />

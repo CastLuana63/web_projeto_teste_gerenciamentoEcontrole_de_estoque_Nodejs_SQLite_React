@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./tabelas.css";
 import { FiArrowUp, FiArrowDown } from "react-icons/fi";
 import { MdEditSquare } from "react-icons/md";
-import EditarParcial from "../editarParcial/editarParcial";
+import EditarParcial from "../modalAlteraProdutoParcial/editarProdutoParcial";
 
 function Tabelas({ dados, colunas, tipo, buscarMovimentacoesProduto }) {
   const [produtoExpandido, setProdutoExpandido] = useState(null);
@@ -36,7 +36,8 @@ function Tabelas({ dados, colunas, tipo, buscarMovimentacoesProduto }) {
             {colunas.map((col, index) => (
               <th key={index}>
                 {col.titulo}
-                {col.titulo !== "ID do Produto" &&
+                {tipo === "produto" &&
+                  col.titulo !== "ID do Produto" &&
                   col.titulo !== "Quantidade" && (
                     <MdEditSquare
                       className="iconEditar"
@@ -148,8 +149,8 @@ function Tabelas({ dados, colunas, tipo, buscarMovimentacoesProduto }) {
                                     <tr>
                                       <th>ID</th>
                                       <th>Data</th>
-                                      <th>Quantidade</th>
                                       <th>Justificativa</th>
+                                      <th>Quantidade</th>
                                     </tr>
                                   </thead>
                                   <tbody>
@@ -160,11 +161,12 @@ function Tabelas({ dados, colunas, tipo, buscarMovimentacoesProduto }) {
                                       >
                                         <td>{mov.id_movimentacao}</td>
                                         <td>{mov.data_movimentacao}</td>
-                                        <td>{mov.quantidade}</td>
                                         <td>{mov.justificativa}</td>
+                                        <td>{mov.quantidade}</td>
                                       </tr>
                                     ))}
                                     <tr className="total-movimentacao">
+                                      <td></td>
                                       <td
                                         colSpan="2"
                                         style={{ fontWeight: "bold" }}
@@ -178,7 +180,6 @@ function Tabelas({ dados, colunas, tipo, buscarMovimentacoesProduto }) {
                                           0
                                         )}
                                       </td>
-                                      <td></td>
                                     </tr>
                                   </tbody>
                                 </>
