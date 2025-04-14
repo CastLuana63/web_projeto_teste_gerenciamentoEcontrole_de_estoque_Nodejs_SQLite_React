@@ -4,37 +4,62 @@
 
 ### 🔌 API RESTful
 
-- API estruturada seguindo os princípios REST:
-  - Client-Server
-  - Stateless
-  - Cacheable
-  - Layered System
-  - Code-on-Demand
+A API foi estruturada com base nos princípios REST:
 
-Referência:  
-🔗 [Boas Práticas API RESTful](https://github.com/CastLuana63/Boas_pr-ticas_api_rest_ful/tree/main)
+- **Client-Server**
+- **Stateless**
+- **Cacheable**
+- **Layered System**
+- **Code-on-Demand** (opcional)
 
-### 🔄 Operações CRUD
+🔗 Referência:  
+[Boas Práticas API RESTful](https://github.com/CastLuana63/Boas_pr-ticas_api_rest_ful/tree/main)
 
-#### Create
+---
+
+## 📁 Estrutura de Pastas do Projeto
+
+### api/ ➜ Diretório raiz da API
+
+#### └── src/ ➜ Contém todo o código-fonte da aplicação
+
+###### ├── app/ ➜ Configuração principal do servidor (Express, middlewares)
+
+###### ├── controllers/ ➜ Lógica de controle das rotas (camada Controller)
+
+###### ├── database/ ➜ Configuração e conexão com o banco de dados (SQLite, migrações, etc.)
+
+###### ├── helpers/ ➜ Funções auxiliares como validações, tratativas e formatações
+
+###### ├── routes/ ➜ Definição das rotas da API
+
+###### ├── services/ ➜ Lógica de negócio (camada Service)
+
+###### └── utils/ ➜ Utilitários diversos: constantes, mensagens padrão, etc.
+
+---
+
+## 🔄 Operações CRUD
+
+### ✅ Create
 
 - [ ] Cadastrar produtos
 - [ ] Registrar movimentações
 
-#### Read
+### 🔍 Read
 
-- [ ] Listar produtos
-- [ ] Listar produtos específicos
-- [ ] Listar movimentações
-- [ ] Listar movimentações específicas
-- [ ] Listar movimentações de produto
-- [ ] Listar movimentações de produto específicos (Entrada ou Saída)
+- [ ] Listar todos os produtos
+- [ ] Buscar produto específico
+- [ ] Listar todas as movimentações
+- [ ] Buscar movimentação específica
+- [ ] Listar movimentações por produto
+- [ ] Listar movimentações específicas (Entrada ou Saída)
 
-#### Update
+### ✏️ Update
 
-- [ ] Atualizar todos dados de produtos
-- [ ] Atualizar alguns dados de produtos
-- [ ] Ativar e Inativar produtos
+- [ ] Atualizar todos os dados dos produtos
+- [ ] Atualizar dados parciais dos produtos
+- [ ] Ativar / Inativar produtos
 
 ---
 
@@ -42,50 +67,47 @@ Referência:
 
 ### 🔹 Diagrama Entidade-Relacionamento
 
-Disponível em:  
 🔗 [Ver Diagrama no DBDiagram](https://dbdiagram.io/d/Sarsdev_teste_webapp_reactjs-67df124675d75cc84416d48a)
 
 ---
 
 ## 🛠️ Construção do Banco de Dados
 
-### **Tabelas**
+### 🧾 Tabela: Produto
 
-#### 🧾 Produto
+| Campo                | Tipo          | Descrição                         |
+| -------------------- | ------------- | --------------------------------- |
+| ID_PRODUTO           | INTEGER       | Identificador único do produto    |
+| DESCRICAO            | TEXT          | Nome ou descrição do produto      |
+| QUANTIDADE           | INTEGER       | Quantidade atual em estoque       |
+| UNIDADE              | TEXT          | Unidade de medida (ex: kg, un, l) |
+| QUANTIDADE_EMBALAGEM | INTEGER       | Quantidade por embalagem          |
+| DISPONIVEL           | BOOLEAN (0/1) | Produto ativo ou inativo          |
 
-Campos:
+---
 
-- `ID_PRODUTO`: identificador único do produto
-- `DESCRICAO`: nome ou descrição do produto
-- `QUANTIDADE`: quantidade atual em estoque
-- `UNIDADE`: unidade de medida (ex: kg, un, l)
-- `QUANTIDADE_EMBALAGEM`: quantidade por embalagem
-- `DISPONIVEL`: flag booleana (1 = sim, 0 = não)
+### 🔄 Tabela: Movimentação
 
-Estrutura:
+| Campo             | Tipo       | Descrição                           |
+| ----------------- | ---------- | ----------------------------------- |
+| ID_MOVIMENTACAO   | INTEGER    | Identificador único da movimentação |
+| DATA              | TEXT (ISO) | Data da movimentação                |
+| ID_PRODUTO        | INTEGER    | Referência ao produto movimentado   |
+| QUANTIDADE        | INTEGER    | Quantidade movimentada              |
+| JUSTIFICATIVA     | TEXT       | Motivo da movimentação              |
+| TIPO_MOVIMENTACAO | TEXT       | Tipo: "Entrada" ou "Saída"          |
 
-#### 🔄 Movimentação
+---
 
-Campos:
+### 🔗 Relacionamento
 
-- `ID_MOVIMENTACAO`: identificador único da movimentação
-- `DATA`: data da movimentação
-- `ID_PRODUTO`: referência ao produto movimentado
-- `QUANTIDADE`: quantidade movimentada
-- `JUSTIFICATIVA`: motivo da movimentação
-- `TIPO_MOVIMENTACAO`: tipo (Entrada ou Saída)
+**Produto (1) : (N) Movimentações**
 
-Estrutura:
+> Um produto pode estar associado a várias movimentações.
 
-#### 🔗 Relacionamento
+---
 
-- **Produto (1) : (N) Movimentações**
-
-Um produto pode estar associado a várias movimentações.
-
-#### 📘 Documentação de Apoio (SQLite)
+### 📘 Documentação de Apoio (SQLite)
 
 - [Node.js - SQLite (Documentação Oficial)](https://nodejs.org/api/sqlite.html)
 - [node-sqlite3 (GitHub)](https://github.com/TryGhost/node-sqlite3)
-
----

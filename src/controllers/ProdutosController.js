@@ -16,7 +16,13 @@ class ProdutosController {
   // Cria um novo produto
   async create(req, res) {
     try {
-      const { descricao, quantidade, unidade, quantidade_embalagem } = req.body;
+      const {
+        descricao,
+        quantidade,
+        unidade,
+        quantidade_embalagem,
+        disponivel,
+      } = req.body;
 
       ValidarProdutos.validarCreate({
         descricao,
@@ -30,6 +36,7 @@ class ProdutosController {
         quantidade,
         unidade,
         quantidade_embalagem,
+        disponivel,
       });
 
       res.status(201).json({
@@ -38,7 +45,19 @@ class ProdutosController {
         mensagem: "Produto criado com sucesso!",
       });
     } catch (error) {
-      res.status(401).json({ mensagem: "Erro ao criar produto", error });
+      if (error.name === "ErroDeValidacao") {
+        res.status(400).json({
+          sucesso: false,
+          mensagem: "Dados inválidos enviados.",
+          erro: error.message,
+        });
+      } else {
+        res.status(500).json({
+          sucesso: false,
+          mensagem: "Erro interno ao criar produto",
+          erro: error.message,
+        });
+      }
     }
   }
 
@@ -46,9 +65,12 @@ class ProdutosController {
   async list(req, res) {
     try {
       const produtos = await ProdutoService.list();
-      res.status(201).json(produtos);
+      res.status(200).json(produtos);
     } catch (error) {
-      res.status(401).json({ mensagem: "Erro ao listar produtos", error });
+      res.status(500).json({
+        mensagem: "Erro ao listar produtos",
+        erro: error.message,
+      });
     }
   }
 
@@ -69,7 +91,7 @@ class ProdutosController {
       res.status(200).json({
         sucesso: true,
         mensagem: resultado.mensagem,
-        produto: resultado.dados,
+        produto: resultado.produtoAlterado,
       });
     } catch (error) {
       res.status(400).json({

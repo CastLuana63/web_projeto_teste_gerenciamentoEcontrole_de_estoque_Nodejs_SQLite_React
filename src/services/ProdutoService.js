@@ -20,14 +20,21 @@ class ProdutosService {
   async create(data) {
     try {
       const db = await openDb();
-      let { descricao, quantidade, unidade, quantidade_embalagem } = data;
+      let { descricao, quantidade, unidade, quantidade_embalagem, disponivel } =
+        data;
 
       quantidade = converterPraNumero(quantidade ?? 0);
       quantidade_embalagem = converterPraNumero(quantidade_embalagem ?? 0);
 
       const produto = await db.run(
-        `INSERT INTO produto (descricao, quantidade, unidade, quantidade_embalagem) VALUES (?, ?, ?, ?)`,
-        [descricao ?? "", quantidade, unidade ?? "", quantidade_embalagem]
+        `INSERT INTO produto (descricao, quantidade, unidade, quantidade_embalagem, disponivel) VALUES (?, ?, ?, ?, ?)`,
+        [
+          descricao ?? "",
+          quantidade,
+          unidade ?? "",
+          quantidade_embalagem,
+          disponivel ?? 0,
+        ]
       );
 
       return {
@@ -36,6 +43,7 @@ class ProdutosService {
         quantidade,
         unidade,
         quantidade_embalagem,
+        disponivel,
       };
     } catch (error) {
       console.error("Erro ao tentar criar produto:", error);
@@ -78,13 +86,7 @@ class ProdutosService {
 
       const resultado = await db.run(
         `UPDATE produto SET descricao = ?, unidade = ?, quantidade_embalagem = ?, disponivel = ? WHERE id_produto = ?`,
-        [
-          descricao ?? "",
-          unidade ?? "",
-          quantidade_embalagem,
-          disponivel ?? 0,
-          id,
-        ]
+        [descricao ?? "", unidade ?? "", quantidade_embalagem, disponivel, id]
       );
 
       if (resultado.changes === 0) {
@@ -96,7 +98,7 @@ class ProdutosService {
 
       return {
         mensagem: "Produto atualizado com sucesso.",
-        dados: {
+        produtoAlterado: {
           id,
           descricao,
           unidade,

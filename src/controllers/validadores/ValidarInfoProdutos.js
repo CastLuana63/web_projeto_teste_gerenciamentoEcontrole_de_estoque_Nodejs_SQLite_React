@@ -7,7 +7,7 @@ class ValidarProdutos {
     }
 
     // Caso passe na validação, exibe mensagem de sucesso
-    console.log("Produto validado com sucesso! Sem erros.");
+    console.log(`Produto validado com sucesso! Dados: ${data}`);
   }
 
   // Validação ao fazer atualização parcial de um produto
@@ -29,7 +29,7 @@ class ValidarProdutos {
     }
 
     // Caso passe na validação, exibe mensagem de sucesso
-    console.log("Produto validado com sucesso! Sem erros.");
+    console.log(`Produto validado com sucesso! Dados: ${data}`);
   }
 }
 
