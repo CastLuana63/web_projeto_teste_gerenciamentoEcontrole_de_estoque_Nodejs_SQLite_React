@@ -63,3 +63,29 @@ export async function alterarProduto({
     alert("Erro ao tentar alterar produto!");
   }
 }
+
+// Função que altera parcialmente as informações do produto
+export async function alterarProdutoParcial({
+  setAbrirModalAlterar,
+  setProdutos,
+  produtoId,
+  descricao,
+  unidade,
+  quantidadeEmbalagem,
+  disponivel,
+}) {
+  try {
+    await api.patch(`/produtos/${produtoId}`, {
+      descricao,
+      unidade,
+      quantidade_embalagem: quantidadeEmbalagem,
+      disponivel,
+    });
+    alert("Produto alterado com sucesso!");
+    setAbrirModalAlterar(false);
+    mostrarProdutos({ setProdutos });
+  } catch (error) {
+    console.log("Erro ao alterar c produto:", error);
+    alert("Erro ao tentar alterar produto!");
+  }
+}

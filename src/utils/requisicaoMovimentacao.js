@@ -40,3 +40,16 @@ export async function criarMov({
     alert("Erro ao tentar criar produto!");
   }
 }
+
+// Mostra as movimentações de saída ou entrada de um produto
+export async function buscarMovimentacoesProduto({ idProduto, tipo }) {
+  try {
+    const resposta = await api.get(
+      `/produtos/${idProduto}/movimentacoes?tipo=${tipo}`
+    );
+    return resposta.data;
+  } catch (error) {
+    console.log("Erro ao buscar movimentações do produto:", error);
+    return [];
+  }
+}

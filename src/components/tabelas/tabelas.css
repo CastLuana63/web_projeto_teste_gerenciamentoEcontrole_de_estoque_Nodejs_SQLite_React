@@ -59,7 +59,7 @@
 
 .sub-tabela-container.entrada {
   background-color: var(--cor-terceariaCLara);
-  border-left: 5px solid #28a745;
+  border-left: 5px solid var(--cor-primaria);
 }
 
 .sub-tabela-container.saida {
@@ -103,6 +103,11 @@
 
 .linha-sem-cor tr {
   background-color: transparent;
+}
+
+.divisoria {
+  border-top: 1px solid #ddd;
+  margin: 10px 0;
 }
 
 @media screen and (max-width: 1160px) {

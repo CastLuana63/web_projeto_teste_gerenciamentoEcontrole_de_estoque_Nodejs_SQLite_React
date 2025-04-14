@@ -1,40 +1,18 @@
 import React, { useState } from "react";
-import api from "../../services/api.js";
+import { alterarProdutoParcial } from "../../utils/requisicaoProduto";
 
-function EditarParcial({ tipo, setAbrirModalAlterar, produtos = [] }) {
+function EditarParcial({
+  tipo,
+  setAbrirModalAlterar,
+  produtos = [],
+  setProdutos,
+}) {
   // Dados alterar produto
   const [produtoId, setProdutoId] = useState();
   const [descricao, setDescricao] = useState();
   const [unidade, setUnidade] = useState();
   const [quantidadeEmbalagem, setQuantidadeEmbalagem] = useState();
   const [disponivel, setDisponivel] = useState(true);
-
-  // Função que altera parcialmente as informações do produto
-  const alterarProduto = async () => {
-    try {
-      await api.patch(`/produtos/${produtoId}`, {
-        descricao,
-        unidade,
-        quantidade_embalagem: quantidadeEmbalagem,
-        disponivel,
-      });
-
-      console.log({
-        data: {
-          produtoId,
-          descricao,
-          unidade,
-          quantidadeEmbalagem,
-          disponivel,
-        },
-      });
-      alert("Produto alterado com sucesso!");
-      setAbrirModalAlterar(false);
-    } catch (error) {
-      console.log("Erro ao alterar c produto:", error);
-      alert("Erro ao tentar alterar produto!");
-    }
-  };
 
   return (
     <div className="modal-overlay">
@@ -87,7 +65,20 @@ function EditarParcial({ tipo, setAbrirModalAlterar, produtos = [] }) {
 
         <div className="modal-botoes">
           <button onClick={() => setAbrirModalAlterar(false)}>Cancelar</button>
-          <button className="adicionar" onClick={alterarProduto}>
+          <button
+            className="adicionar"
+            onClick={() =>
+              alterarProdutoParcial({
+                setAbrirModalAlterar,
+                setProdutos,
+                produtoId,
+                descricao,
+                unidade,
+                quantidadeEmbalagem,
+                disponivel,
+              })
+            }
+          >
             Alterar
           </button>
         </div>

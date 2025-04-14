@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./tabelas.css";
-import { FiArrowUp, FiArrowDown } from "react-icons/fi";
-import { MdEditSquare } from "react-icons/md";
 import EditarParcial from "../modalAlteraProdutoParcial/editarProdutoParcial";
+import { buscarMovimentacoesProduto } from "../../utils/requisicaoMovimentacao";
+import TabelaHeader from "./tabelaHeader/tabelaHeader";
+import TabelaLinha from "./tabelaLinha/tabelaLinha";
 
-function Tabelas({ dados, colunas, tipo, buscarMovimentacoesProduto }) {
+function Tabelas({ dados, colunas, tipo, setProdutos }) {
   const [produtoExpandido, setProdutoExpandido] = useState(null);
   const [movimentacoesFiltradas, setMovimentacoesFiltradas] = useState([]);
   const [abrirModalAlterar, setAbrirModalAlterar] = useState(false);
@@ -23,7 +24,11 @@ function Tabelas({ dados, colunas, tipo, buscarMovimentacoesProduto }) {
       return;
     }
 
-    const movimentacoes = await buscarMovimentacoesProduto(produtoId, tipoMov);
+    const movimentacoes = await buscarMovimentacoesProduto({
+      idProduto: produtoId,
+      tipo: tipoMov,
+    });
+
     setMovimentacoesFiltradas(movimentacoes);
     setProdutoExpandido(chave);
   };
@@ -31,106 +36,39 @@ function Tabelas({ dados, colunas, tipo, buscarMovimentacoesProduto }) {
   return (
     <div className={containerClasse}>
       <table className="tabela">
-        <thead>
-          <tr>
-            {colunas.map((col, index) => (
-              <th key={index}>
-                {col.titulo}
-                {tipo === "produto" &&
-                  col.titulo !== "ID do Produto" &&
-                  col.titulo !== "Quantidade" && (
-                    <MdEditSquare
-                      className="iconEditar"
-                      onClick={() => {
-                        setAbrirModalAlterar(true), setTipoCampo(col.titulo);
-                      }}
-                    />
-                  )}
-              </th>
-            ))}
-            {tipo === "produto" && (
-              <>
-                <th>Entrada</th>
-                <th>Saída</th>
-              </>
-            )}
-          </tr>
-        </thead>
+        <TabelaHeader
+          colunas={colunas}
+          tipo={tipo}
+          setAbrirModalAlterar={setAbrirModalAlterar}
+          setTipoCampo={setTipoCampo}
+        />
 
-        {dados && dados.length > 0 ? (
-          dados.map((linha, index) => {
-            const chaveEntrada = `${linha.id_produto}-Entrada`;
-            const chaveSaida = `${linha.id_produto}-Saída`;
-            const expandido =
-              produtoExpandido === chaveEntrada ||
-              produtoExpandido === chaveSaida;
+        <tbody>
+          {dados && dados.length > 0 ? (
+            dados.map((linha, index) => {
+              const chaveEntrada = `${linha.id_produto}-Entrada`;
+              const chaveSaida = `${linha.id_produto}-Saída`;
+              const expandido =
+                produtoExpandido === chaveEntrada ||
+                produtoExpandido === chaveSaida;
 
-            return (
-              <React.Fragment key={index}>
-                <tbody>
-                  <tr
-                    className={
-                      index % 2 === 0 ? "linha-branca" : "linha-sem-cor"
-                    }
-                  >
-                    {colunas.map((col, i) => {
-                      const valor = linha[col.chave];
-                      const isProdutoDisponivel =
-                        tipo === "produto" &&
-                        col.chave === "disponivel" &&
-                        valor.toLowerCase() === "disponível";
-
-                      const isMovimentacaoEntrada =
-                        tipo === "mov" &&
-                        col.chave === "tipo_movimentacao" &&
-                        valor.toLowerCase() === "entrada";
-
-                      return (
-                        <td key={i} data-label={col.titulo}>
-                          {isProdutoDisponivel || isMovimentacaoEntrada ? (
-                            <span className="trDisponivel">
-                              {valor.toUpperCase()}
-                            </span>
-                          ) : col.chave === "disponivel" ||
-                            col.chave === "tipo_movimentacao" ? (
-                            <span className="trIndisponivel">
-                              {valor.toUpperCase()}
-                            </span>
-                          ) : (
-                            valor
-                          )}
-                        </td>
-                      );
-                    })}
-
-                    {tipo === "produto" && (
-                      <>
-                        <td>
-                          <button
-                            className="adicionar"
-                            onClick={() =>
-                              abrirMovProduto(linha.id_produto, "Entrada")
-                            }
-                          >
-                            <FiArrowUp />
-                          </button>
-                        </td>
-                        <td>
-                          <button
-                            onClick={() =>
-                              abrirMovProduto(linha.id_produto, "Saída")
-                            }
-                          >
-                            <FiArrowDown />
-                          </button>
-                        </td>
-                      </>
-                    )}
-                  </tr>
+              return (
+                <React.Fragment key={index}>
+                  <TabelaLinha
+                    linha={linha}
+                    colunas={colunas}
+                    tipo={tipo}
+                    abrirMovProduto={abrirMovProduto}
+                    index={index}
+                  />
 
                   {tipo === "produto" && expandido && (
                     <>
-                      <tr className="linha-expandida linha-branca">
+                      <tr
+                        className={`linha-expandida ${
+                          index % 2 === 0 ? "linha-branca" : "linha-sem-cor"
+                        }`}
+                      >
                         <td
                           colSpan={colunas.length + 2}
                           style={{ background: "white" }}
@@ -160,7 +98,13 @@ function Tabelas({ dados, colunas, tipo, buscarMovimentacoesProduto }) {
                                         className="tabelaMini"
                                       >
                                         <td>{mov.id_movimentacao}</td>
-                                        <td>{mov.data_movimentacao}</td>
+                                        <td>
+                                          {
+                                            String(mov.data_movimentacao).split(
+                                              "T"
+                                            )[0]
+                                          }
+                                        </td>
                                         <td>{mov.justificativa}</td>
                                         <td>{mov.quantidade}</td>
                                       </tr>
@@ -205,15 +149,13 @@ function Tabelas({ dados, colunas, tipo, buscarMovimentacoesProduto }) {
                       </tr>
                     </>
                   )}
-                </tbody>
-              </React.Fragment>
-            );
-          })
-        ) : (
-          <tbody>
+                </React.Fragment>
+              );
+            })
+          ) : (
             <tr>
               <td
-                colSpan={colunas.length + (tipo === "produto" ? 2 : 0)}
+                colSpan={colunas.length + (tipo === "produto" ? 1 : 0)}
                 className="alerta"
               >
                 {tipo === "produto"
@@ -221,14 +163,16 @@ function Tabelas({ dados, colunas, tipo, buscarMovimentacoesProduto }) {
                   : "Nenhuma Movimentação Encontrada"}
               </td>
             </tr>
-          </tbody>
-        )}
+          )}
+        </tbody>
       </table>
+
       {abrirModalAlterar && (
         <EditarParcial
           tipo={tipoCampo}
           setAbrirModalAlterar={setAbrirModalAlterar}
           produtos={tipo === "produto" ? dados : []}
+          setProdutos={setProdutos}
         />
       )}
     </div>

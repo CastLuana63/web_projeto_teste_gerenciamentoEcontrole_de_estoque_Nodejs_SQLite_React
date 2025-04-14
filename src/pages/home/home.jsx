@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { colunasMov, colunasProduto } from "../../utils/tabelasTitulos.js";
 import "./home.css";
 
-import api from "../../services/api.js";
 import { mostrarProdutos } from "../../utils/requisicaoProduto.js";
 import { mostrarMovimentacao } from "../../utils/requisicaoMovimentacao.js";
+
 import Header from "../../components/header/header";
 import Cabecalho from "../../components/cabecalho/cabecalho.jsx";
 import Tabelas from "../../components/tabelas/tabelas";
@@ -13,44 +13,32 @@ import ModalAlterarCompleto from "../../components/modalAlterarProdutoCompleto/a
 import CriarMovimentacao from "../../components/modalCriarMovimentacao/criarMovimentacao.jsx";
 
 export default function Home() {
-  const [ativo, setAtivo] = useState("Produto");
-  const [temaDaltonico, setTemaDaltonico] = useState(false);
-  const [menuAberto, setMenuAberto] = useState(false);
-  const [mostrarModalCriar, setMostrarModalCriar] = useState(false);
-  const [mostrarModalCriarMov, setMostrarModalCriarMov] = useState(false);
+  // Estados principais de controle da tela
+  const [ativo, setAtivo] = useState("Produto"); // Controla as abas do Header (Produto ou Movimentação)
+  const [temaDaltonico, setTemaDaltonico] = useState(false); // Alterna entre tema normal e acessível (Daltonico)
+  const [menuAberto, setMenuAberto] = useState(false); // Controla visibilidade do menu lateral
 
-  // Armazena todas os produtos e Movimentações
+  // Estados que armazenam dados da API
   const [produtos, setProdutos] = useState([]);
   const [movimentacoes, setMovimentacoes] = useState([]);
 
-  // Abre o modal para alterar e armazena o id do produto
-  const [mostrarModalAlterar, setMostrarModalAlterar] = useState(false);
+  // Estados para exibição dos modais
+  const [mostrarModalCriar, setMostrarModalCriar] = useState(false); // Modal para criar produto
+  const [mostrarModalAlterar, setMostrarModalAlterar] = useState(false); // Modal para alterar produto
+  const [mostrarModalCriarMov, setMostrarModalCriarMov] = useState(false); // Modal para criar movimentação
 
-  // Muda o tema visual da aplicação para o modo de acessibilidade
+  // Alterna o tema da aplicação para modo acessível
   const mudarTema = () => {
     setTemaDaltonico(!temaDaltonico);
   };
 
-  // Abre o modal para criar produto
+  // Abre o modal de acordo com a aba ativa
   const abrirModalCriar = () => {
     if (ativo === "Produto") return setMostrarModalCriar(true);
     else return setMostrarModalCriarMov(true);
   };
 
-  // Mostra as movimentações de saída ou entrada de um produto
-  const buscarMovimentacoesProduto = async (idProduto, tipo) => {
-    try {
-      const resposta = await api.get(
-        `/produtos/${idProduto}/movimentacoes?tipo=${tipo}`
-      );
-      return resposta.data;
-    } catch (error) {
-      console.log("Erro ao buscar movimentações do produto:", error);
-      return [];
-    }
-  };
-
-  // Hook do React que abre ou fecha o menuSideBar quando a interface tenha um certo tamanho (600px)
+  // Fecha automaticamente o menu lateral se a largura da tela for maior que 600px
   useEffect(() => {
     const menuFechar = () => {
       if (window.innerWidth > 600 && menuAberto) {
@@ -61,7 +49,7 @@ export default function Home() {
     return () => window.removeEventListener("resize", menuFechar);
   }, [menuAberto]);
 
-  // Hook do React que atualiza os dados da api e exibem na interface assim que há um reload na página
+  // Carrega dados da API ao montar o componente
   useEffect(() => {
     mostrarProdutos({ setProdutos });
     mostrarMovimentacao({ setMovimentacoes });
@@ -77,19 +65,25 @@ export default function Home() {
         menuAberto={menuAberto}
         setMenuAberto={setMenuAberto}
       />
+
       <div className="scroll-area">
         <div className="box">
           <Cabecalho
             setMostrarModalAlterar={setMostrarModalAlterar}
             abrirModalCriar={abrirModalCriar}
             ativo={ativo}
+            setMovimentacoes={setMovimentacoes}
+            setProdutos={setProdutos}
+            produtos={produtos}
+            movimentacoes={movimentacoes}
           />
+
           {ativo === "Produto" ? (
             <Tabelas
               tipo="produto"
               dados={produtos}
               colunas={colunasProduto}
-              buscarMovimentacoesProduto={buscarMovimentacoesProduto}
+              setProdutos={setProdutos}
             />
           ) : (
             <Tabelas tipo="mov" dados={movimentacoes} colunas={colunasMov} />
@@ -103,11 +97,11 @@ export default function Home() {
           />
         )}
 
-        {mostrarModalCriarMov && (
-          <CriarMovimentacao
-            setMostrarModalCriarMov={setMostrarModalCriarMov}
+        {mostrarModalAlterar && (
+          <ModalAlterarCompleto
             produtos={produtos}
             setProdutos={setProdutos}
+            setMostrarModalAlterar={setMostrarModalAlterar}
           />
         )}
 
