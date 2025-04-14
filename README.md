@@ -19,7 +19,7 @@ Este projeto consiste em uma aplicação web desenvolvida com **React.js** no fr
 
 Permitir o gerenciamento e consulta completa de um estoque, com controle sobre as entradas e saídas de produtos.
 
-#### ✅ Requisitos Funcionais
+#### ✅ Requisitos Funcionais (Persona)
 
 - Cadastro de novos produtos
 - Atualização de produtos com dados modificados
@@ -51,8 +51,6 @@ Permitir o gerenciamento e consulta completa de um estoque, com controle sobre a
 
 ## 📁 Estrutura do Projeto
 
-Este repositório é dividido em três partes principais:
-
 ### 🧠 `api/` – Backend
 
 Contém o servidor da aplicação, criado com **Node.js** e **Express**. Essa API RESTful é responsável por todas as regras de negócio e persistência de dados, utilizando um banco de dados **SQLite**.
@@ -60,7 +58,6 @@ Contém o servidor da aplicação, criado com **Node.js** e **Express**. Essa AP
 📌 Funcionalidades:
 
 - CRUD de produtos e movimentações
-- Geração de relatórios de estoque
 - Controle de entrada e saída de produtos
 - Validações e boas práticas REST
 
@@ -77,7 +74,7 @@ O frontend foi desenvolvido em **React.js** com Vite, consumindo a API via **Axi
 - Páginas modulares com componentes reutilizáveis
 - Acessibilidade com suporte a daltonismo
 - Integração com API
-- Layout adaptado para diferentes dispositivos
+- Layout adaptado responsivamente para diferentes dispositivos
 
 🔗 [Documentação detalhada do Frontend](./spa/README.md)
 
@@ -85,7 +82,7 @@ O frontend foi desenvolvido em **React.js** com Vite, consumindo a API via **Axi
 
 ## 📸 Exemplo Prático – Funcionalidades em Ação
 
-Nesta seção, apresentamos o funcionamento prático da aplicação, com capturas de tela e exemplos reais de uso da interface e API. Cada etapa representa uma parte essencial do fluxo de controle de estoque.
+Nesta seção, apresentarei o funcionamento prático da aplicação, com capturas de tela e exemplos reais de uso da interface e API. Cada etapa representa uma parte funcional do fluxo de controle de estoque.
 
 > Tela Principal
 > ![Tela Inicial](./assets/00-tela-principal.png)
@@ -94,12 +91,12 @@ Nesta seção, apresentamos o funcionamento prático da aplicação, com captura
 
 ### 🧾 Exibição dos Produtos e Movimentações
 
-A tela inicial exibe a **lista de produtos cadastrados**, com suas respectivas **quantidades**, **status (ativo/inativo)** e botão para visualizar o histórico de movimentações (entradas e saídas).
+A tela inicial exibe a **lista de produtos cadastrados e Movimentações**, com suas respectivas **quantidades**, **status (Disponível/Indisponível)** e outras informações, além do botão para visualizar o histórico de movimentações (entradas e saídas) de um produto específico.
 
 📌 **Funcionalidades envolvidas**:
 
 - Integração direta com a API
-- Consulta de produtos via API
+- Consulta de produtos e movimentações via API
 - Listagem paginada e/ou com scroll
 - Visualização de movimentações associadas ao produto
 
@@ -112,7 +109,7 @@ A tela inicial exibe a **lista de produtos cadastrados**, com suas respectivas *
 
 ### ➕ Criando um Novo Produto
 
-Nesta etapa, o usuário realiza o cadastro do **primeiro item de estoque**, preenchendo informações como nome, descrição, unidade, categoria, quantidade mínima e quantidade inicial.
+Nesta etapa, o usuário realiza o cadastro d **um produto no estoque**, preenchendo informações como descrição, quantidade, unidade, quantidade por embalagem e diponibilidade (status).
 
 📌 **Funcionalidades envolvidas**:
 
@@ -131,13 +128,13 @@ Nesta etapa, o usuário realiza o cadastro do **primeiro item de estoque**, pree
 
 ### 🔄 Criando uma Movimentação
 
-Ao acessar um produto, o usuário pode registrar uma **movimentação de entrada ou saída**, informando a quantidade, o motivo e a data.
+Se haver um produto, o usuário pode registrar uma **movimentação de entrada ou saída**, informando a quantidade, a justificativa e a data.
 
 📌 **Funcionalidades envolvidas**:
 
 - Seleção de tipo de movimentação (entrada/saída)
 - Atualização do estoque em tempo real
-- Registro histórico da movimentação
+- Registro histórico da movimentação de um produto
 
 > Movimentação de Saída
 > ![Movimentação Produto Saída](./assets/video/03-criar-movimentacao-saida.gif)
@@ -146,30 +143,35 @@ Ao acessar um produto, o usuário pode registrar uma **movimentação de entrada
 
 ---
 
-### 🧑‍🔧 Editando um Produto (Informações Completas)
+### 🔧 Editando um Produto (Informações Completas)
 
-Exemplo de edição completa: alterando nome, unidade, categoria e quantidades. Ideal para atualizações importantes no cadastro do produto.
+Exemplo de edição completa: alterando **descrição**, **unidade**, **quantidade por embalagem**, **Disponibilidade** (status). Ideal para atualizações importantes no cadastro do produto.
+
+❗ Obs: A quantidade total de um produto não pode ser alterada diretamente, pois está vinculada às movimentações (entradas e saídas).
 
 📌 **Funcionalidades envolvidas**:
 
-- Pré-preenchimento de campos no formulário
 - Requisição `PUT` com dados modificados
 - Atualização visual do item na lista
 
-![Editar Produto]()
+  > Alterar informações do produto
+  > ![Editar Produto](./assets/video/05-alterar-produto-completo.gif)
 
 ---
 
 ### ✏️ Editando um Produto (Edição Parcial)
 
-Edição rápida de um ou dois campos, como apenas a **quantidade mínima** ou o **status** (ativo/inativo).
+Edição rápida de um ou dois campos, como apenas a **descrição**, **unidade**, **quantidade por embalagem** e a **Disponibilidade** (Disponível/Indisponível).
+
+❗ Obs: A quantidade total de um produto não pode ser alterada diretamente, pois está vinculada às movimentações (entradas e saídas).
 
 📌 **Funcionalidades envolvidas**:
 
-- Requisição parcial (ex: `PATCH`, se implementado)
+- Requisição parcial método `PATCH`
 - Manutenção de dados não modificados
 
-![Edição Parcial]()
+> Alterar parcialmente informações do produto
+> ![Edição Parcial](./assets/video/06-alterar-produto-parcialmente.gif)
 
 ---
 
