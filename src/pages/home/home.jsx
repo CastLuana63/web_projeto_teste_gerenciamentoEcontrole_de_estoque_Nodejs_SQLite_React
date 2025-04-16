@@ -64,6 +64,8 @@ export default function Home() {
         mudarTema={mudarTema}
         menuAberto={menuAberto}
         setMenuAberto={setMenuAberto}
+        setProdutos={setProdutos}
+        setMovimentacoes={setMovimentacoes}
       />
 
       <div className="scroll-area">

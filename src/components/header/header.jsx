@@ -2,6 +2,8 @@ import React from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import logo from "../../assets/caixa.png";
 import "./header.css";
+import { mostrarMovimentacao } from "../../utils/requisicaoMovimentacao";
+import { mostrarProdutos } from "../../utils/requisicaoProduto";
 
 function Header({
   ativo,
@@ -10,6 +12,8 @@ function Header({
   mudarTema,
   menuAberto,
   setMenuAberto,
+  setMovimentacoes,
+  setProdutos,
 }) {
   return (
     <div className="header">
@@ -18,7 +22,10 @@ function Header({
         <li className="link">
           <a
             className={ativo === "Produto" ? "ativo" : ""}
-            onClick={() => setAtivo("Produto")}
+            onClick={() => {
+              setAtivo("Produto");
+              mostrarProdutos({ setProdutos });
+            }}
           >
             Produto
           </a>
@@ -26,7 +33,10 @@ function Header({
         <li className="link">
           <a
             className={ativo === "Movimentação" ? "ativo" : ""}
-            onClick={() => setAtivo("Movimentação")}
+            onClick={() => {
+              setAtivo("Movimentação");
+              mostrarMovimentacao({ setMovimentacoes });
+            }}
           >
             Movimentação
           </a>
