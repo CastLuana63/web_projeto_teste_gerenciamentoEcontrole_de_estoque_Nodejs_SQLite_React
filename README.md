@@ -177,15 +177,18 @@ Edição rápida de um ou dois campos, como apenas a **descrição**, **unidade*
 
 ### 🔍 Utilizando o Mecanismo de Pesquisa
 
-A barra de pesquisa permite filtrar produtos por nome, código, categoria ou status. O resultado aparece dinamicamente.
+A barra de pesquisa permite filtrar produtos e movimentação por descrição/justificativa, ids, tipo de movimentação ou status. O resultado aparece dinamicamente.
 
 📌 **Funcionalidades envolvidas**:
 
-- Pesquisa client-side ou via API (`GET /produtos?q=...`)
 - Atualização em tempo real conforme o usuário digita
 
-![Pesquisa]()
+> Pesquisa de produtos
+> ![Pesquisa Produtos](./assets/video/07-pesquisar-produtos.gif)
+
+> Pesquisa de Movimentações
+> ![Pesquisa Produtos](./assets/video/08-pesquisar-movimentacao.gif)
 
 ---
 
-> ⚙️ Em breve: Exemplo de **relatórios semanais**, **ajuste de planilhas** e **exportação de dados**.
+<!-- > ⚙️ Em breve: Exemplo de **relatórios semanais**, **ajuste de planilhas** e **exportação de dados**. -->
