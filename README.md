@@ -102,8 +102,9 @@ A tela inicial exibe a **lista de produtos cadastrados e Movimentações**, com 
 
 > Produtos
 > ![Lista de Produtos](./assets/01-tela-produto.png)
+---
 > Movimentações
-> ![Lista de Movimentação](./assets/02-tela-movimentacao.png)
+> ![Lista de Movimentação](./assets/02-lista-movimentacao)
 
 ---
 
