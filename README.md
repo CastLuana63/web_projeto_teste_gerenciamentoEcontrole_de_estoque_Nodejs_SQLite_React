@@ -84,7 +84,8 @@ O frontend foi desenvolvido em **React.js** com Vite, consumindo a API via **Axi
 
 Nesta seção, apresentarei o funcionamento prático da aplicação, com capturas de tela e exemplos reais de uso da interface e API. Cada etapa representa uma parte funcional do fluxo de controle de estoque.
 
-> Tela Principal
+Tela Principal
+---
 > ![Tela Inicial](./assets/00-tela-principal.png)
 
 ---
@@ -100,10 +101,12 @@ A tela inicial exibe a **lista de produtos cadastrados e Movimentações**, com 
 - Listagem paginada e/ou com scroll
 - Visualização de movimentações associadas ao produto
 
-> Produtos
+Produtos
+---
 > ![Lista de Produtos](./assets/01-tela-produto.png)
 ---
-> Movimentações
+Movimentações
+---
 > ![Lista de Movimentação](./assets/02-tela-movimentacao.png)
 
 ---
@@ -120,9 +123,12 @@ Nesta etapa, o usuário realiza o cadastro d **um produto no estoque**, preenche
 - Feedback visual (ex: Toast de sucesso)
 - Atualização dinâmica da lista de produtos
 
-> Produto Disponível
+Produto Disponível
+---
 > ![Novo Produto](./assets/video/01-criar-produto.gif)
-> Produto Indisponível
+---
+Produto Indisponível
+---
 > ![Novo Produto](./assets/video/02-criar-produto-indisponivel.gif)
 
 ---
@@ -137,9 +143,12 @@ Se haver um produto, o usuário pode registrar uma **movimentação de entrada o
 - Atualização do estoque em tempo real
 - Registro histórico da movimentação de um produto
 
-> Movimentação de Saída
+Movimentação de Saída
+---
 > ![Movimentação Produto Saída](./assets/video/03-criar-movimentacao-saida.gif)
-> Movimentação de Entrada
+---
+Movimentação de Entrada
+---
 > ![Movimentação Produto Entrada](./assets/video/04-criar-movimentacao-entrada.gif)
 
 ---
@@ -172,7 +181,8 @@ Edição rápida de um ou dois campos, como apenas a **descrição**, **unidade*
 - Requisição parcial método `PATCH`
 - Manutenção de dados não modificados
 
-> Alterar parcialmente informações do produto
+Alterar parcialmente informações do produto
+---
 > ![Edição Parcial](./assets/video/06-alterar-produto-parcialmente.gif)
 
 ---
@@ -185,10 +195,12 @@ A barra de pesquisa permite filtrar produtos e movimentação por descrição/ju
 
 - Atualização em tempo real conforme o usuário digita
 
-> Pesquisa de produtos
+Pesquisa de produtos
+---
 > ![Pesquisa Produtos](./assets/video/07-pesquisar-produtos.gif)
 
-> Pesquisa de Movimentações
+Pesquisa de Movimentações
+---
 > ![Pesquisa Produtos](./assets/video/08-pesquisar-movimentacao.gif)
 
 ---
