@@ -155,8 +155,8 @@ Exemplo de edição completa: alterando **descrição**, **unidade**, **quantida
 - Requisição `PUT` com dados modificados
 - Atualização visual do item na lista
 
-  > Alterar informações do produto
-  > ![Editar Produto](./assets/video/05-alterar-produto-completo.gif)
+> Alterar informações do produto
+> ![Editar Produto](./assets/video/05-alterar-produto-completo.gif)
 
 ---
 
