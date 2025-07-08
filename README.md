@@ -111,9 +111,9 @@ Movimentações
 ---
 Produtos com Movimentações
 ---
-> ![Lista de Produtos Movimentação](./assets/assets/produtos_movimentacoes_01.png)
-> ![Lista de Produtos Movimentação](./assets/assets/produtos_movimentacoes_02.png)
-> ![Lista de Produtos Movimentação](./assets/assets/produtos_movimentacoes_03.png)
+> ![Lista de Produtos Movimentação](./assets/produtos_movimentacoes_01.png)
+> ![Lista de Produtos Movimentação](./assets/produtos_movimentacoes_02.png)
+> ![Lista de Produtos Movimentação](./assets/produtos_movimentacoes_03.png)
 ---
 
 ### ➕ Criando um Novo Produto
