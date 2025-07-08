@@ -108,7 +108,12 @@ Produtos
 Movimentações
 ---
 > ![Lista de Movimentação](./assets/02-tela-movimentacao.png)
-
+---
+Produtos com Movimentações
+---
+> ![Lista de Produtos Movimentação](./assets/assets/produtos_movimentacoes_01.png)
+> ![Lista de Produtos Movimentação](./assets/assets/produtos_movimentacoes_02.png)
+> ![Lista de Produtos Movimentação](./assets/assets/produtos_movimentacoes_03.png)
 ---
 
 ### ➕ Criando um Novo Produto
